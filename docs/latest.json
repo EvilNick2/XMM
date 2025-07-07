@@ -1,0 +1,11 @@
+{
+    "version": "v1.0.0",
+    "notes": "[Initial Release] Application will automatically restart and apply the update.",
+    "pub_date": "2025-07-07T14:31:13Z",
+    "platforms": {
+        "windows-x86_64": {
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTc2RXU2FJTGluRW16VGFhNnNaakpwK0wzSVNaQm51WlFkQWNUMHlRZ1dpTmd1V21DTnA0STNXaWFYZkV1aUNZVEdTRnVRaU12MWh5SE5pVWhiVk1pMnYzMHZiOGlQTndZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzUxODk1MzI5CWZpbGU6WE1NXzEuMC4wX3g2NF9lbi1VUy5tc2kuemlwCm11Z2NCdW8yMThFUGlQS0FSdjlDUElTUGo2VVFrL0dIMEYwVlVVRkpaRmpTY2RMd2VzOStkR0s5YktKUS9vMGEyYjdoSWdjeSs0RzhuQUxlNks3MUN3PT0K",
+            "url": "https://github.com/EvilNick2/xmm/releases/download/v1.0.0/XMM_1.0.0_x64_en-US.msi.zip"
+        }
+    }
+}
