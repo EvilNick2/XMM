@@ -1,0 +1,38 @@
+[package]
+name = "xmm"
+version = "1.0.0"
+description = "XMM"
+authors = ["EvilNick2"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "xmm_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+tauri = { version = "1.6", features = [ "protocol-asset", "updater", "shell-execute", "process-exit", "shell-open", "fs-all", "path-all", "window-all", "dialog-all"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rusqlite = { version = "0.31", features = ["bundled"] } # Use bundled for easier setup
+thiserror = "1.0"
+once_cell = "1.19" # For lazy static initialization
+walkdir = "2"
+lazy_static = "1.4" # Useful for regex compilation
+regex = "1"
+rust-ini = "0.21.1"
+toml = "0.8.20"
+zip = "0.6"
+sevenz-rust = "0.6.1"
+unrar = "=0.5.8"
+windows = { version = "0.61.1", features = ["Win32_UI_Shell", "Win32_Foundation", "Win32_UI_WindowsAndMessaging"] }
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]

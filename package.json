@@ -1,0 +1,34 @@
+{
+    "name": "xmm",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "dotenv vite build",
+        "preview": "vite preview",
+        "tauri": "dotenv tauri"
+    },
+    "dependencies": {
+        "@tauri-apps/api": "^1.5.3",
+        "framer-motion": "^12.7.4",
+        "lucide-react": "^0.501.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.30.0",
+        "react-select": "^5.10.1",
+        "react-toastify": "^11.0.5",
+        "react-use-measure": "^2.1.7",
+        "react-window": "^1.8.11",
+        "recharts": "^2.15.2"
+    },
+    "devDependencies": {
+        "@tauri-apps/cli": "^1.5.11",
+        "@types/react": "^18.2.15",
+        "@types/react-dom": "^18.2.7",
+        "@vitejs/plugin-react": "^4.2.1",
+        "dotenv-cli": "^8.0.0",
+        "sharp": "^0.34.1",
+        "vite": "^5.0.0"
+    }
+}

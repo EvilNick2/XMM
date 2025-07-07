@@ -1,0 +1,126 @@
+{
+    "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist",
+        "withGlobalTauri": true
+    },
+    "package": {
+        "productName": "XMM",
+        "version": "1.0.0"
+    },
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "fs": {
+                "all": true,
+                "scope": [
+                    "**"
+                ]
+            },
+            "path": {
+                "all": true
+            },
+            "shell": {
+                "all": false,
+                "open": true,
+                "execute": true,
+                "scope": [
+                    {
+                        "name": "execute-any-file",
+                        "cmd": "{0}",
+                        "args": [],
+                        "sidecar": false
+                    },
+                    {
+                        "name": "open-explorer-windows",
+                        "cmd": "explorer",
+                        "args": [
+                            "{0}"
+                        ]
+                    },
+                    {
+                        "name": "open-finder-macos",
+                        "cmd": "open",
+                        "args": [
+                            "{0}"
+                        ]
+                    },
+                    {
+                        "name": "open-filemanager-linux",
+                        "cmd": "xdg-open",
+                        "args": [
+                            "{0}"
+                        ]
+                    }
+                ]
+            },
+            "window": {
+                "all": true
+            },
+            "dialog": {
+                "all": true
+            },
+            "process": {
+                "exit": true
+            },
+            "protocol": {
+                "asset": true,
+                "assetScope": [
+                    "**"
+                ]
+            }
+        },
+        "bundle": {
+            "active": true,
+            "identifier": "CrossPlatformModManager",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
+            "targets": [
+                "msi",
+                "updater"
+            ],
+            "resources": [
+                "definitions/"
+            ],
+            "windows": {
+                "certificateThumbprint": null,
+                "digestAlgorithm": "sha256",
+                "timestampUrl": ""
+            }
+        },
+        "security": {
+            "csp": null
+        },
+        "windows": [
+            {
+                "label": "main",
+                "title": "XMM - A Tauri Mod Manager for Gacha Games",
+                "width": 1400,
+                "height": 800,
+                "minWidth": 900,
+                "minHeight": 650,
+                "resizable": true,
+                "fullscreen": false,
+                "maximized": false,
+                "decorations": true,
+                "visible": true,
+                "center": true
+            }
+        ],
+        "updater": {
+            "active": true,
+            "dialog": true,
+            "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDEyQTdCODIwOUE2NDc1QUMKUldTc2RXU2FJTGluRWp5M3gzUVNSckNURi9pVU12T3k5QkJkWSt6MFZtQ0NZU3VoTGlvNEJURXgK",
+            "endpoints": [
+                "https://evilnick2.github.io/xmm/latest.json"
+            ]
+        }
+    }
+}
