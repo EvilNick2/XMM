@@ -1,11 +1,11 @@
 {
-    "version": "v2.0.0",
-    "notes": "[Added HSR Support] Application will automatically restart and apply the update.",
-    "pub_date": "2025-07-11T11:22:17Z",
+    "version": "v2.0.1",
+    "notes": "[Fix incorrect updater URL] Application will automatically restart and apply the update.",
+    "pub_date": "2025-07-11T11:32:28Z",
     "platforms": {
         "windows-x86_64": {
-            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTc2RXU2FJTGluRXBVaWVydlhSVTZlVjd0bXBDaXdyckVlbWlkWXRUYmNVblVFWGI5LytpWXJXRXdja3hhNkxBYTQ2dXl5VnBZcjdveWlUNHRwTTN5TkU2OUt0MEt0Z3dVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzUyMjMyODIzCWZpbGU6WE1NXzIuMC4wX3g2NF9lbi1VUy5tc2kuemlwCnpuS2doY2ZUd3RGb0pBT1RaVUFPbWw3TEtQbHE1WnVGS01xVVRpcUlMK0NUM1A0TElyemZHWWJ6eHJpVE1YZFV6QVFDcFN4Z3RzUjBiY3Bkb2NUdkJRPT0K",
-            "url": "https://github.com/EvilNick2/xmm/releases/download/v2.0.0/XMM_2.0.0_x64_en-US.msi.zip"
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTc2RXU2FJTGluRWw0TTF4OEU5ZDRtSXl6VzhMSkN5b3I5ZzJjQVZrc1FNY3NkbFo3MTI3b01aeG5Od1dxeno0Y2xUbWFsVFpDOSswK1praGJzUXR6amsydjJoL3BPNVE4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzUyMjMzNDIwCWZpbGU6WE1NXzIuMC4xX3g2NF9lbi1VUy5tc2kuemlwCmluT1lQS1V3aDBzWjJqTGJPSU50akpBY0FMUTlhRlVVTUoyMmJBNE9LRmtKVWVjcU5Wam9TQXFqaVQ4eE05RzNVM3h3a1NBcFplRUptaDBRL2N4N0RBPT0K",
+            "url": "https://github.com/EvilNick2/XMM/releases/download/v2.0.1/XMM_2.0.1_x64_en-US.msi.zip"
         }
     }
 }
