@@ -134,7 +134,7 @@ struct ScanProgress {
 
 const APP_CONFIG_FILENAME: &str = "app_config.json";
 const DEFAULT_GAME_SLUG: &str = "genshin";
-const PREDEFINED_GAMES: [&str; 3] = ["genshin", "wuwa", "zzz"];
+const PREDEFINED_GAMES: [&str; 4] = ["genshin", "hsr", "wuwa", "zzz"];
 const DB_INTERNAL_GAME_SLUG_KEY: &str = "database_game_slug";
 const DB_FILENAME_PREFIX: &str = "app_data_"; // Prefix for archived game dbs
 const ACTIVE_DB_FILENAME: &str = "app_data.sqlite";

@@ -15,7 +15,7 @@ XMM aims to simplify the process of installing, organizing, and switching betwee
 
 ## ✨ Key Features
 
-*   **🎮 Multi-Game Support:** Manage mods for different games (currently supports **Genshin Impact**, **Zenless Zone Zero**, and **Wuthering Waves**) with separate configurations and databases. Easily switch between supported games.
+*   **🎮 Multi-Game Support:** Manage mods for different games (currently supports **Genshin Impact**, **Honkai: Star Rail**, **Zenless Zone Zero**, and **Wuthering Waves**) with separate configurations and databases. Easily switch between supported games.
 *   **🗂️ Mod Library & Categorization:** Automatically scans your mods folder and organizes mods by category (Characters, Weapons, UI, etc.) and entity for the selected game.
 *   **🖱️ Simple Enable/Disable:** Easily toggle mods on or off with a switch. GMM handles the `DISABLED_` prefix renaming for you.
 *   **🖱️ Drag & Drop Import:** Drag archive files (.zip, .7z, .rar) directly onto the application window to initiate the import process.
