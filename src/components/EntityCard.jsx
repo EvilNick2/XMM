@@ -59,6 +59,31 @@ const resonatorIconsFA = {
     // Add more Wuwa resonator attributes as needed
 };
 
+// Font Awesome icons map for HSR attribute types
+const hsrAttributeIconsFA = {
+    Physical:   "fas fa-hand-fist",
+    Fire:       "fas fa-fire",
+    Ice:        "fas fa-icicles",
+    Lightning:  "fas fa-bolt",
+    Wind:       "fas fa-wind",
+    Quantum:    "fas fa-atom",
+    Imaginary:  "fas fa-brain",
+    // Add more HSR attributes as needed
+};
+
+// Font Awesome icons map for HSR path types
+const hsrPathIconsFA = {
+    Destruction:  "fas fa-sword",
+    "The Hunt":   "fas fa-crosshairs",
+    Erudition:    "fas fa-book-open",
+    Harmony:      "fas fa-handshake",
+    Preservation: "fas fa-shield-alt",
+    Nihility:     "fas fa-skull",
+    Abundance:    "fas fa-heart",
+    Remembrance:  "fas fa-feather-alt",
+    // Add more HSR paths as needed
+};
+
 // Icons for common displays
 const RarityIcon = ({ value }) => <i className="fas fa-star fa-fw" style={{ color: getRarityColor(value) }}></i>;
 const TypeIcon = () => <i className="fas fa-tag fa-fw" style={{ color: '#7acbf9' }}></i>;
@@ -86,6 +111,12 @@ function EntityCard({ entity }) {
     const wuwaWeapon = details?.resonator_weapon;
     const wuwaAttributeIconClass = wuwaAttribute ? (resonatorIconsFA[wuwaAttribute] || 'fas fa-question-circle') : null;
 
+    // HSR-specific properties
+    const hsrAttribute = details?.hsr_attribute;
+    const hsrAttributeIconClass = hsrAttribute ? (hsrAttributeIconsFA[hsrAttribute] || 'fas fa-question-circle') : null;
+    const hsrPath = details?.path; 
+    const hsrPathIconClass = hsrPath ? (hsrPathIconsFA[hsrPath] || 'fas fa-user-tag') : null;
+
     const imageUrl = base_image ? `/images/entities/${slug}_base.jpg` : DEFAULT_PLACEHOLDER_IMAGE;
 
     const handleImageError = (e) => {
@@ -102,8 +133,11 @@ function EntityCard({ entity }) {
     // Determine if this is a Wuwa character
     const isWuwa = wuwaAttribute || wuwaWeapon;
 
+    // Determine if this is a HSR character
+    const isHSR = hsrAttribute || hsrPath;
+
     return (
-        <Link to={`/entity/${slug}`} className={`character-card ${isZZZ ? 'zzz-card' : isWuwa ? 'wuwa-card' : 'genshin-card'}`} title={`View mods for ${name}`}>
+        <Link to={`/entity/${slug}`} className={`character-card ${isZZZ ? 'zzz-card' : isWuwa ? 'wuwa-card' : isHSR ? 'hsr-card' : 'genshin-card'}`} title={`View mods for ${name}`}>
 
             {/* Container for Badges (CSS will handle layout) */}
             <div className="card-badges-container">
@@ -153,6 +187,14 @@ function EntityCard({ entity }) {
                     <div className="card-element" title={wuwaAttribute}>
                         <i className={`${wuwaAttributeIconClass} fa-fw`} style={{ color: `var(--wuwa-${wuwaAttribute?.toLowerCase()})` || 'var(--light)' }}></i>
                         {wuwaAttribute}
+                    </div>
+                )}                
+                
+                {/* HSR-specific properties */}
+                {hsrAttribute && hsrAttributeIconClass && (
+                    <div className="card-element" title={hsrAttribute}>
+                        <i className={`${hsrAttributeIconClass} fa-fw`} style={{ color: `var(--hsr-${hsrAttribute?.toLowerCase()})` || 'var(--light)' }}></i>
+                        {hsrAttribute}
                     </div>
                 )}
                 

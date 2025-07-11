@@ -107,7 +107,32 @@ const resonatorWeaponFA = {
     Rectifier: "fas fa-satellite",
     Sword: "fas fa-khanda",
     // Add more weapon types as needed
-}
+};
+
+// Font Awesome icons map for HSR attribute types
+const hsrAttributeIconsFA = {
+    Physical:   "fas fa-hand-fist",
+    Fire:       "fas fa-fire",
+    Ice:        "fas fa-icicles",
+    Lightning:  "fas fa-bolt",
+    Wind:       "fas fa-wind",
+    Quantum:    "fas fa-atom",
+    Imaginary:  "fas fa-brain",
+    // Add more HSR attributes as needed
+};
+
+// Font Awesome icons map for HSR path types
+const hsrPathIconsFA = {
+    Destruction:  "fas fa-sword",
+    "The Hunt":   "fas fa-crosshairs",
+    Erudition:    "fas fa-book-open",
+    Harmony:      "fas fa-handshake",
+    Preservation: "fas fa-shield-alt",
+    Nihility:     "fas fa-skull",
+    Abundance:    "fas fa-heart",
+    Remembrance:  "fas fa-feather-alt",
+    // Add more HSR paths as needed
+};
 
 
 const EnhancedScrollIndicator = ({ onViewMods }) => {
@@ -318,6 +343,11 @@ function EntityPage() {
             // Wuwa branch
             if (activeGame === 'wuwa' && details?.resonator_attribute) {
                 setAvailableTypes([details.resonator_attribute]);
+            }            
+
+            // HSR branch
+            if (activeGame === 'hsr' && details?.hsr_attribute) {
+                setAvailableTypes([details.hsr_attribute]);
             }
         } catch (err) {
             const errorString = typeof err === 'string' ? err : (err?.message || 'Unknown error');
@@ -491,6 +521,9 @@ function EntityPage() {
                             assetDetails.types.some(t => activeTypeFilters.includes(t));
                     } else if (activeGame === 'wuwa') {
                         const attr = assetDetails.resonator_attribute;
+                        matchesTypeFilter = attr && activeTypeFilters.includes(attr);
+                    } else if (activeGame === 'hsr') {
+                        const attr = assetDetails.hsr_attribute;
                         matchesTypeFilter = attr && activeTypeFilters.includes(attr);
                     } else {
                         // If the asset doesn't have types, it won't match any type filter
@@ -820,7 +853,14 @@ function EntityPage() {
     const wuwaAttributeIconClass = wuwaAttribute ? (resonatorIconsFA[wuwaAttribute] || 'fas fa-question-circle') : null;
     const wuwaWeapon = details?.resonator_weapon;
     const wuwaWeaponIconClass = wuwaWeapon ? (resonatorWeaponFA[wuwaWeapon] || 'fas fa-question-circle') : null;
-    const wuwaRarity = details?.rarity;
+    const wuwaRarity = details?.rarity;    
+    
+    // HSR-specific properties
+    const hsrAttribute = details?.hsr_attribute;
+    const hsrAttributeIconClass = hsrAttribute ? (hsrAttributeIconsFA[hsrAttribute] || 'fas fa-question-circle') : null;
+    const hsrPath = details?.path; 
+    const hsrPathIconClass = hsrPath ? (hsrPathIconsFA[hsrPath] || 'fas fa-user-tag') : null;
+    const hsrRarity = details?.rarity;    
 
     const avatarUrl = entity.base_image ? `/images/entities/${entitySlug}_base.jpg` : DEFAULT_ENTITY_PLACEHOLDER_IMAGE;
     const handleAvatarError = (e) => {
@@ -840,7 +880,7 @@ function EntityPage() {
 
     return (
         <div
-            className={`character-page ${activeGame === 'zzz' ? 'zzz-character' : 'genshin-character'}`}
+            className={`character-page ${activeGame === 'zzz' ? 'zzz-character' : activeGame === 'wuwa' ? 'wuwa-character' : activeGame === 'hsr' ? 'hsr-character' : 'genshin-character'}`}
             style={{ height: '100%', overflow: 'hidden', position: 'relative' }}
             ref={pageRef}
             onContextMenu={(e) => {
@@ -920,6 +960,12 @@ function EntityPage() {
                                             <span className="attribute-icon" style={{ color: `var(--wuwa-${wuwaAttribute?.toLowerCase()})` || 'var(--primary)' }} title={`Attribute: ${wuwaAttribute}`}>
                                                 <i className={`${wuwaAttributeIconClass} fa-fw`}></i>
                                             </span>
+                                        }             
+                                        {/* Display attribute icon for HSR characters */}
+                                        {hsrAttributeIconsFA && activeGame === 'hsr' &&
+                                            <span className="attribute-icon" style={{ color: `var(--hsr-${hsrAttribute?.toLowerCase()})` || 'var(--primary)' }} title={`Attribute: ${hsrAttribute}`}>
+                                                <i className={`${hsrAttributeIconClass} fa-fw`}></i>
+                                            </span>
                                         }
                                     </h2>
                                     <div className="character-details">
@@ -983,6 +1029,23 @@ function EntityPage() {
                                         {activeGame === 'wuwa' && wuwaRarity &&
                                             <div className="character-detail">
                                                 <i className="fas fa-star fa-fw" style={{ color: getRarityColor(wuwaRarity) }}></i> {wuwaRarity}
+                                            </div>
+                                        }
+
+                                        {/* HSR-specific details */}
+                                        {activeGame === 'hsr' && hsrAttribute &&
+                                            <div className="character-detail">
+                                                <i className={`${hsrAttributeIconClass} fa-fw`} style={{ color: `var(--hsr-${hsrAttribute?.toLowerCase()})` || 'var(--primary)' }} title={`Attribute: ${hsrAttribute}`}></i> {hsrAttribute}
+                                            </div>
+                                        }
+                                        {activeGame === 'hsr' && hsrPath &&
+                                            <div className="character-detail">
+                                                <i className={`${hsrPathIconClass} fa-fw`} style={{ color: `var(--hsr-${hsrPath?.toLowerCase()})` || 'var(--primary)' }} title={`Path: ${hsrPath}`}></i> {hsrPath}
+                                            </div>
+                                        }
+                                        {activeGame === 'hsr' && hsrRarity &&
+                                            <div className="character-detail">
+                                                <i className="fas fa-star fa-fw" style={{ color: getRarityColor(hsrRarity) }}></i> {hsrRarity}
                                             </div>
                                         }
                                     </div>
@@ -1130,6 +1193,29 @@ function EntityPage() {
                                                             title={`Filter by ${attr}`}
                                                         >
                                                             <i className={resonatorIconsFA[attr] || 'fas fa-tag'} /> {attr}
+                                                        </button>
+                                                    ))}
+                                                    {activeTypeFilters.length > 0 && (
+                                                        <button className="type-filter-clear" onClick={clearTypeFilters}>
+                                                            <i className="fas fa-times" /> Clear
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* --- Type Filters (for HSR characters) --- */}
+                                        {activeGame === 'hsr' && availableTypes.length > 0 && (
+                                            <div className="type-filters-container">
+                                                <div className="type-filters">
+                                                    {availableTypes.map(attr => (
+                                                        <button
+                                                            key={attr}
+                                                            className={`type-filter-btn ${activeTypeFilters.includes(attr) ? 'active' : ''}`}
+                                                            onClick={() => toggleTypeFilter(attr)}
+                                                            title={`Filter by ${attr}`}
+                                                        >
+                                                            <i className={hsrAttributeIconsFA[attr] || 'fas fa-tag'} /> {attr}
                                                         </button>
                                                     ))}
                                                     {activeTypeFilters.length > 0 && (

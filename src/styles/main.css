@@ -36,6 +36,25 @@
     --wuwa-glacio: #37b1d1;
     --wuwa-havoc: #971654;
     --wuwa-spectro: #bba81e;
+
+    /* HSR Attribute Colors */
+    --hsr-physical: #B19A7C;
+    --hsr-fire: #FF5A3A;
+    --hsr-ice: #7DD5FF;
+    --hsr-lightning: #C07CFF;
+    --hsr-wind: #8EE85E;
+    --hsr-quantum: #B4B4FF;
+    --hsr-imaginary: #F6C64E;
+
+    /* HSR Path Colors */
+    --hsr-destruction: #D84A4A;
+    --hsr-the-hunt: #E6C84B;
+    --hsr-erudition: #32BBD5;
+    --hsr-harmony: #E788FF;
+    --hsr-preservation: #4DA3F7;
+    --hsr-nihility: #8D6CFF;
+    --hsr-abundance: #4BD2FF;
+    --hsr-remembrance: #9FD1FF;
 }
 
 /* Base styles */

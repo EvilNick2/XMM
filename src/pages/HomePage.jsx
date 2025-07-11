@@ -32,13 +32,25 @@ const attributes = [
 
 // Attribute data for Wuwa
 const resonatorAttributes = [
-    { key: 'all',    name: 'All',    icon: 'fas fa-circle-nodes', color: 'var(--light)' },
-    { key: 'Aero',   name: 'Aero',   icon: 'fas fa-wind',         color: 'var(--wuwa-aero)' },
-    { key: 'Electro',name: 'Electro',icon: 'fas fa-bolt',         color: 'var(--wuwa-electro)' },
+    { key: 'all', name: 'All', icon: 'fas fa-circle-nodes', color: 'var(--light)' },
+    { key: 'Aero', name: 'Aero', icon: 'fas fa-wind', color: 'var(--wuwa-aero)' },
+    { key: 'Electro', name: 'Electro', icon: 'fas fa-bolt', color: 'var(--wuwa-electro)' },
     { key: 'Fusion', name: 'Fusion', icon: 'fas fa-fire-flame-curved', color: 'var(--wuwa-fusion)' },
-    { key: 'Glacio', name: 'Glacio', icon: 'fas fa-snowflake',    color: 'var(--wuwa-glacio)' },
-    { key: 'Havoc',  name: 'Havoc',  icon: 'fas fa-explosion',    color: 'var(--wuwa-havoc)' },
-    { key: 'Spectro',name: 'Spectro',icon: 'fas fa-sun',          color: 'var(--wuwa-spectro)' },
+    { key: 'Glacio', name: 'Glacio', icon: 'fas fa-snowflake', color: 'var(--wuwa-glacio)' },
+    { key: 'Havoc', name: 'Havoc', icon: 'fas fa-explosion', color: 'var(--wuwa-havoc)' },
+    { key: 'Spectro', name: 'Spectro', icon: 'fas fa-sun', color: 'var(--wuwa-spectro)' },
+];
+
+// Attribute data for HSR 
+const hsrAttributes = [
+    { key: 'all', name: 'All', icon: 'fas fa-circle-nodes', color: 'var(--light)' },
+    { key: 'Physical', name: 'Physical', icon: 'fas fa-hand-fist', color: 'var(--hsr-physical)' },
+    { key: 'Fire', name: 'Fire', icon: 'fas fa-fire', color: 'var(--hsr-fire)' },
+    { key: 'Ice', name: 'Ice', icon: 'fas fa-icicles', color: 'var(--hsr-ice)' },
+    { key: 'Lightning', name: 'Lightning', icon: 'fas fa-bolt', color: 'var(--hsr-lightning)' },
+    { key: 'Wind', name: 'Wind', icon: 'fas fa-wind', color: 'var(--hsr-wind)' },
+    { key: 'Quantum', name: 'Quantum', icon: 'fas fa-atom', color: 'var(--hsr-quantum)' },
+    { key: 'Imaginary', name: 'Imaginary', icon: 'fas fa-brain', color: 'var(--hsr-imaginary)' },
 ];
 
 // Helper to safely parse JSON
@@ -75,6 +87,7 @@ function HomePage() {
     const [selectedElement, setSelectedElement] = useState('all');
     const [selectedAttribute, setSelectedAttribute] = useState('all');
     const [selectedResonatorAttr, setSelectedResonatorAttr] = useState('all');
+    const [selectedHSRAttr, setSelectedHSRAttr] = useState('all');
     const [sortOption, setSortOption] = useState(DEFAULT_SORT_OPTION);
     const [activeGame, setActiveGame] = useState('genshin');
     const sortStorageKey = `categorySort_${categorySlug}`;
@@ -83,14 +96,14 @@ function HomePage() {
     useEffect(() => {
         const fetchActiveGame = async () => {
             try {
-            const game = await invoke('get_active_game');
-            setActiveGame(game || 'genshin');
+                const game = await invoke('get_active_game');
+                setActiveGame(game || 'genshin');
             } catch (err) {
-            console.error("Failed to get active game:", err);
-            setActiveGame('genshin');
+                console.error("Failed to get active game:", err);
+                setActiveGame('genshin');
             }
         };
-        
+
         fetchActiveGame();
     }, []);
 
@@ -140,24 +153,30 @@ function HomePage() {
                 const details = safeParseJson(entity.details, {});
                 if (details?.element !== selectedElement) return false;
             }
-            
+
             // Attribute Filter (only for ZZZ characters category)
             if (categorySlug === 'characters' && activeGame === 'zzz' && selectedAttribute !== 'all') {
                 const details = safeParseJson(entity.details, {});
                 if (details?.attribute !== selectedAttribute) return false;
             }
-            
+
             // Attribute Filter (only for Wuwa characters category)
             if (categorySlug === 'characters' && activeGame === 'wuwa' && selectedResonatorAttr !== 'all') {
                 const details = safeParseJson(entity.details, {});
                 if (details?.resonator_attribute !== selectedResonatorAttr) return false;
             }
             
+            // Attribute Filter (only for Wuwa characters category)
+            if (categorySlug === 'characters' && activeGame === 'hsr' && selectedHSRAttr !== 'all') {
+                const details = safeParseJson(entity.details, {});
+                if (details?.hsr_attribute !== selectedHSRAttr) return false;
+            }
+
             // Search Term Filter
             if (searchTerm) {
                 const lowerSearch = searchTerm.toLowerCase();
                 if (!entity.name.toLowerCase().includes(lowerSearch)) {
-                     return false; // Exclude if name doesn't match
+                    return false; // Exclude if name doesn't match
                 }
             }
             return true; // Include if passes all filters
@@ -186,31 +205,32 @@ function HomePage() {
         });
 
         return tempEntities;
-    }, [entitiesWithCounts, searchTerm, selectedElement, selectedAttribute, selectedResonatorAttr, categorySlug, sortOption, activeGame]); // Dependencies for memoization
+    }, [entitiesWithCounts, searchTerm, selectedElement, selectedAttribute, selectedResonatorAttr, selectedHSRAttr, categorySlug, sortOption, activeGame]); // Dependencies for memoization
 
 
     const pageTitle = categoryInfo.name; // Use state for title
     const showElementFilters = categorySlug === 'characters' && activeGame === 'genshin';
     const showAttributeFilters = categorySlug === 'characters' && activeGame === 'zzz';
     const showWuwaAttributeFilters = categorySlug === 'characters' && activeGame === 'wuwa';
+    const showHSRAttributeFilters = categorySlug === 'characters' && activeGame === 'hsr';
 
     return (
         <div className="home-page fadeIn">
             <div className="page-header">
                 <h1 className="page-title">{pageTitle}</h1>
 
-                 {/* Sort Dropdown */}
-                <div className="sort-dropdown-container" style={{ 
-                    marginLeft: (showElementFilters || showAttributeFilters || showWuwaAttributeFilters) ? '20px' : 'auto', 
-                    marginRight: '20px' 
+                {/* Sort Dropdown */}
+                <div className="sort-dropdown-container" style={{
+                    marginLeft: (showElementFilters || showAttributeFilters || showWuwaAttributeFilters || showHSRAttributeFilters) ? '20px' : 'auto',
+                    marginRight: '20px'
                 }}>
                     <label htmlFor="sort-select" style={styles.sortLabel}>Sort by:</label>
                     <select id="sort-select" value={sortOption} onChange={handleSortChange} style={styles.sortSelect} aria-label="Sort entities">
-                        {sortOptions.map(option => ( <option key={option.value} value={option.value}>{option.label}</option> ))}
+                        {sortOptions.map(option => (<option key={option.value} value={option.value}>{option.label}</option>))}
                     </select>
                 </div>
 
-                 {/* Element Filters (Conditional for Genshin) */}
+                {/* Element Filters (Conditional for Genshin) */}
                 {showElementFilters && (
                     <div className="element-filters">
                         {elements.map(element => (
@@ -228,7 +248,7 @@ function HomePage() {
                     </div>
                 )}
 
-                 {/* Attribute Filters (Conditional for ZZZ) */}
+                {/* Attribute Filters (Conditional for ZZZ) */}
                 {showAttributeFilters && (
                     <div className="attribute-filters">
                         {attributes.map(attribute => (
@@ -246,7 +266,7 @@ function HomePage() {
                     </div>
                 )}
 
-                 {/* Attribute Filters (Conditional for Wuwa) */}
+                {/* Attribute Filters (Conditional for Wuwa) */}
                 {showWuwaAttributeFilters && (
                     <div className="attribute-filters">
                         {resonatorAttributes.map(attribute => (
@@ -264,7 +284,25 @@ function HomePage() {
                     </div>
                 )}
 
-                 {/* Search Bar Container */}
+                {/* Attribute Filters (Conditional for HSR) */}
+                {showHSRAttributeFilters && (
+                    <div className="attribute-filters">
+                        {hsrAttributes.map(attribute => (
+                            <button
+                                key={attribute.key}
+                                className={`attribute-filter-button ${selectedHSRAttr === attribute.key ? 'active' : ''}`}
+                                onClick={() => setSelectedHSRAttr(attribute.key)}
+                                title={attribute.name}
+                                style={{ '--attribute-color': attribute.color }}
+                            >
+                                <i className={`${attribute.icon} fa-fw`}></i>
+                                <span className="filter-button-name">{attribute.name}</span>
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {/* Search Bar Container */}
                 <div className="search-bar-container">
                     <div className="search-bar">
                         <i className="fas fa-search"></i>
